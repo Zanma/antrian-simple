@@ -19,6 +19,7 @@ import com.google.gson.GsonBuilder;
 
 import org.json.JSONArray;
 import org.json.JSONException;
+import org.json.JSONObject;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -45,6 +46,32 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         setNoNow();
     }
 
+    public void incrementNo() {
+
+        Log.d(TAG, "incrementNo: ");
+
+        Antrian antrian = new Antrian();
+        antrian.setNo(Integer.valueOf(tvNoNow.getText().toString()));
+
+        String jsoon = gson.toJson(antrian);
+
+                AndroidNetworking.put("https://antrian-simple.glitch.me/antrian/1")
+                        .addApplicationJsonBody(antrian)
+                        //.addBodyParameter(jsoon)
+                        //.addApplicationJsonBody(jsoon)
+                .setPriority(Priority.LOW)
+                .build().getAsJSONArray(new JSONArrayRequestListener() {
+                    @Override
+                    public void onResponse(JSONArray response) {
+                    }
+                    @Override
+                    public void onError(ANError error) {
+                        Log.d(TAG, "onResponse error: "+error.toString());
+                    }
+                });
+
+    }
+
     public void setNoNow() {
 
         AndroidNetworking.get("https://antrian-simple.glitch.me/antrian")
@@ -61,7 +88,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                             e.printStackTrace();
                         }
                         tvNoNow.setText(antrian.getNo().toString());
-                        Toast.makeText(MainActivity.this, response.toString(), Toast.LENGTH_SHORT).show();
                     }
                     @Override
                     public void onError(ANError error) {
@@ -76,6 +102,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         switch (v.getId()) {
             case R.id.btn_increment:
                 Toast.makeText(this, "Nomor Antrian berhasil dinaikkan", Toast.LENGTH_SHORT).show();
+                int newNoNow = Integer.valueOf(tvNoNow.getText().toString()) + 1;
+                tvNoNow.setText(String.valueOf(newNoNow));
+                incrementNo();
                 break;
             case R.id.btn_edit_no_ku:
                 Toast.makeText(this, "Nomormu sudah terupdate", Toast.LENGTH_SHORT).show();
