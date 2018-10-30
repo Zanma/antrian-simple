@@ -5,7 +5,6 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Intent;
 import android.net.Uri;
-import android.renderscript.RenderScript;
 import android.support.v4.app.NotificationCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -34,7 +33,7 @@ import org.json.JSONObject;
 
 import java.net.URISyntaxException;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+public class UserMainActivity extends AppCompatActivity implements View.OnClickListener {
 
     private TextView tvNoNow;
     private EditText etNoKu;
@@ -67,7 +66,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private Emitter.Listener onNewMessage = new Emitter.Listener() {
         @Override
         public void call(final Object... args) {
-            MainActivity.this.runOnUiThread(new Runnable() {
+            UserMainActivity.this.runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
                     JSONObject data = (JSONObject) args[0];
@@ -101,9 +100,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         if (current <= 2) {
 
-            NotificationCompat.Builder builer = new NotificationCompat.Builder(MainActivity.this);
+            NotificationCompat.Builder builer = new NotificationCompat.Builder(UserMainActivity.this);
             Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://techsupportnep.blogspot.com"));
-            PendingIntent pendingIntent = PendingIntent.getActivity(MainActivity.this, 01, intent,0);
+            PendingIntent pendingIntent = PendingIntent.getActivity(UserMainActivity.this, 01, intent,0);
             builer.setContentIntent(pendingIntent);
             builer.setDefaults(Notification.DEFAULT_ALL);
             builer.setContentTitle("Boodonation 2018");
@@ -117,7 +116,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_admin_main);
 
         mSocket.on("new message", onNewMessage);
         mSocket.connect();
