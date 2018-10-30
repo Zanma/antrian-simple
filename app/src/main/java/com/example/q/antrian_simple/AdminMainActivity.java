@@ -122,7 +122,7 @@ public class AdminMainActivity extends AppCompatActivity implements View.OnClick
         mSocket.connect();
 
         tvNoNow = (TextView) findViewById(R.id.tv_no_now);
-        etNoKu = (EditText) findViewById(R.id.et_no_ku);
+//        etNoKu = (EditText) findViewById(R.id.et_no_ku);
 //        btnEditNoKu = (Button) findViewById(R.id.btn_edit_no_ku);
 //        btnEditNoKu.setOnClickListener(this);
         btnIncrement = (Button) findViewById(R.id.btn_increment);

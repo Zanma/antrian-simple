@@ -37,7 +37,7 @@ public class UserMainActivity extends AppCompatActivity implements View.OnClickL
 
     private TextView tvNoNow;
     private EditText etNoKu;
-    private Button btnIncrement, btnEditNoKu;
+    private Button  btnEditNoKu;
 
     Gson gson = new GsonBuilder().create();
 
@@ -125,39 +125,39 @@ public class UserMainActivity extends AppCompatActivity implements View.OnClickL
         etNoKu = (EditText) findViewById(R.id.et_no_ku);
         btnEditNoKu = (Button) findViewById(R.id.btn_edit_no_ku);
         btnEditNoKu.setOnClickListener(this);
-        btnIncrement = (Button) findViewById(R.id.btn_increment);
-        btnIncrement.setOnClickListener(this);
+//        btnIncrement = (Button) findViewById(R.id.btn_increment);
+//        btnIncrement.setOnClickListener(this);
 
         setNoNow();
     }
 
-    public void incrementNo() {
-
-        Log.d(TAG, "incrementNo: ");
-
-        Antrian antrian = new Antrian();
-        antrian.setNo(Integer.valueOf(tvNoNow.getText().toString()));
-
-        String jsoon = gson.toJson(antrian);
-
-        AndroidNetworking.put("http://mobileporos.nyamukterbang.com/antrian/1")
-                .addApplicationJsonBody(antrian)
-                //.addBodyParameter(jsoon)
-                //.addApplicationJsonBody(jsoon)
-                .setPriority(Priority.LOW).build().getAsJSONObject(new JSONObjectRequestListener() {
-            @Override
-            public void onResponse(JSONObject response) {
-                Log.d(TAG, "onResponse: ressp"+response);
-            }
-
-            @Override
-            public void onError(ANError anError) {
-                Log.d(TAG, "onError: eeee"+anError);
-
-            }
-        });
-
-    }
+//    public void incrementNo() {
+//
+//        Log.d(TAG, "incrementNo: ");
+//
+//        Antrian antrian = new Antrian();
+//        antrian.setNo(Integer.valueOf(tvNoNow.getText().toString()));
+//
+//        String jsoon = gson.toJson(antrian);
+//
+//        AndroidNetworking.put("http://mobileporos.nyamukterbang.com/antrian/1")
+//                .addApplicationJsonBody(antrian)
+//                //.addBodyParameter(jsoon)
+//                //.addApplicationJsonBody(jsoon)
+//                .setPriority(Priority.LOW).build().getAsJSONObject(new JSONObjectRequestListener() {
+//            @Override
+//            public void onResponse(JSONObject response) {
+//                Log.d(TAG, "onResponse: ressp"+response);
+//            }
+//
+//            @Override
+//            public void onError(ANError anError) {
+//                Log.d(TAG, "onError: eeee"+anError);
+//
+//            }
+//        });
+//
+//    }
 
     public void setNoNow() {
 
@@ -187,13 +187,13 @@ public class UserMainActivity extends AppCompatActivity implements View.OnClickL
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.btn_increment:
-                Toast.makeText(this, "Nomor Antrian berhasil dinaikkan", Toast.LENGTH_SHORT).show();
-                int newNoNow = Integer.valueOf(tvNoNow.getText().toString()) + 1;
-                tvNoNow.setText(String.valueOf(newNoNow));
-                attemptSend();
-                incrementNo();
-                break;
+//            case R.id.btn_increment:
+//                Toast.makeText(this, "Nomor Antrian berhasil dinaikkan", Toast.LENGTH_SHORT).show();
+//                int newNoNow = Integer.valueOf(tvNoNow.getText().toString()) + 1;
+//                tvNoNow.setText(String.valueOf(newNoNow));
+//                attemptSend();
+////                incrementNo();
+//                break;
             case R.id.btn_edit_no_ku:
                 Toast.makeText(this, "Nomormu sudah terupdate", Toast.LENGTH_SHORT).show();
         }
